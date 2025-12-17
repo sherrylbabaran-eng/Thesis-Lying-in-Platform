@@ -3,9 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lying-In Clinic Management System</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f9fb;
+            color: #333;
+        }
+
+        header {
+            background-color: #2E8BC0;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 16px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        nav {
+            background-color: #1c6ea4;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 40px 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #2E8BC0;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background-color: #2E8BC0;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    
+
+<header>
+    <h1>
+        Development of a Web-Based Integrated Management Platform for Lying-In Clinics in Cavite
+    </h1>
+    <p>
+        with Decision Support System and Mobile Application
+    </p>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Features</a>
+    <a href="#">Decision Support</a>
+    <a href="#">Mobile App</a>
+    <a href="#">Login</a>
+</nav>
+
+<div class="container">
+
+    <div class="section">
+        <h2>About the System</h2>
+        <p>
+            This web-based integrated management platform is designed to improve
+            the operations of lying-in clinics in Cavite by digitizing patient records,
+            monitoring maternal health, and providing decision support to healthcare
+            professionals. The system also includes a mobile application for convenient
+            access and real-time updates.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>Core Features</h2>
+        <div class="features">
+            <div class="card">
+                <h3>Patient Management</h3>
+                <p>Manage prenatal records, patient profiles, and medical history efficiently.</p>
+            </div>
+            <div class="card">
+                <h3>Decision Support System</h3>
+                <p>Provides risk assessment and recommendations based on maternal data.</p>
+            </div>
+            <div class="card">
+                <h3>Clinic Reports</h3>
+                <p>Generate reports for deliveries, prenatal visits, and clinic performance.</p>
+            </div>
+            <div class="card">
+                <h3>Mobile Application</h3>
+                <p>Access patient data, alerts, and notifications through a mobile device.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Target Users</h2>
+        <ul>
+            <li>Clinic Administrators</li>
+            <li>Midwives and Doctors</li>
+            <li>Clinic Staff</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2025 Lying-In Clinic Management System | Cavite</p>
+</footer>
+
 </body>
 </html>
