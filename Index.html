@@ -1,117 +1,630 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lying-In Clinic Management Platform</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cavite Lying-In Clinic</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<style>
+/* ================= GLOBAL ================= */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:#121212;color:#EDEDED;scroll-behavior:smooth;}
+html { scroll-behavior: smooth; }
+section{padding:90px 20px;}
+.container{max-width:1200px;margin:auto;}
+h2{text-align:center;color:#b374d6;font-size:2.6rem;margin-bottom:20px;}
+.subheading{text-align:center;color:#ccc;font-size:.95rem;margin-bottom:50px;}
+a{text-decoration:none;color:inherit;}
+
+/* ================= HEADER ================= */
+header{
+  position:sticky;top:0;z-index:1000;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 12px 12px 8px;
+  background:rgba(30,30,47,.95);
+  backdrop-filter:blur(10px);
+  box-shadow:0 8px 20px rgba(0,0,0,.5);
+}
+  /* Header layout helpers */
+  .left-group{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+  .brand{display:flex;align-items:center;gap:10px}
+  nav{display:flex;gap:28px;align-items:center;justify-content:center;flex:1}
+  nav a{font-size:14px;position:relative}
+  /* Hide mobile-only nav contact by default (show only on small screens) */
+  .nav-contact{display:none}
+  .header-right{display:flex;align-items:center;gap:14px;flex:0 0 auto}
+  /* Logo sizing and hamburger defaults */
+  .logo-img{height:40px;border-radius:8px;}
+  .logo-img{background:transparent;display:block;width:48px;height:48px;padding:4px;}
+  /* Hide hamburger by default; show on small screens */
+  .menu-btn{display:none !important}
+  @media (max-width:900px){
+    header{padding-left:8px;padding-right:8px}
+    .menu-btn{display:inline-flex !important;background:transparent;border:1px solid rgba(255,255,255,0.04);color:#EDEDED;padding:8px;border-radius:8px;cursor:pointer;margin-left:8px}
+    nav{display:none}
+    header.nav-open nav{display:flex;flex-direction:column;position:fixed;left:0;right:0;top:var(--header-h,64px);height:calc(100vh - var(--header-h,64px));background:rgba(15,15,18,0.98);padding:16px;z-index:900}
+    /* Small-screen contact line: hide header inline contact and show nav contact */
+    .header-right{display:none}
+    .contact-mini{display:none}
+    .nav-contact{display:block;width:100%;text-align:center;font-size:13px;padding:12px 0;color:#fff;border-top:1px solid rgba(255,255,255,0.03);margin-top:12px}
+    .nav-contact a, .nav-contact .hours{display:inline-block;margin:0 6px;font-size:13px;color:#fff}
+    /* Mobile typography & spacing tweaks for professional appearance */
+    body{font-size:15px}
+    .logo-img{width:40px;height:40px}
+    .site-title{font-size:0.95rem}
+    nav a{font-size:13px}
+    .hero{padding:40px 16px;min-height:56vh}
+    .hero-content{max-width:600px;padding:6px 10px}
+    .hero-content h1{font-size:2rem;line-height:1.08}
+    .hero-content p{font-size:0.95rem}
+    .hero-buttons{margin-top:20px}
+    .hero-buttons a{padding:10px 18px;font-size:14px}
+    .subheading{font-size:0.95rem}
+    h2{font-size:1.6rem}
+    .team-card img{width:100px;height:100px}
+    .article-card img{height:140px}
+    footer, .footer-grid {font-size:0.95rem}
+    /* Extra-small screens: make contact line even smaller and stack items */
+    @media (max-width:420px){
+      .contact-mini{font-size:12px;padding:6px 0}
+      .contact-mini a, .contact-mini .hours{display:block;margin:3px 0}
+    }
+  }
+.hero{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:72vh;
+  padding:80px 20px;
+  overflow:hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(18,18,18,0.3), rgba(18,18,18,0.9));
+  z-index: 1;
+  transition: background 1s ease-in-out;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.hero-content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  max-width:750px;
+}
+.hero-sub{
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-size:.75rem;
+  color:#d9b3e6;
+}
+.hero-content h1{font-size:3.2rem;margin:15px 0;color:#fff;}
+.hero-content p{color:#ddd;line-height:1.6;}
+.hero-buttons{margin-top:30px;display:flex;gap:15px;justify-content:center;flex-wrap:wrap;}
+.hero-buttons a{
+  padding:12px 28px;border-radius:30px;
+  background:#b374d6;color:#fff;font-weight:600;
+  transition:.3s;
+}
+.hero-buttons a.secondary{background:transparent;border:1px solid #b374d6;}
+.hero-buttons a:hover{transform:translateY(-3px);}
+
+/* ================= JOURNEY ================= */
+.journey{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:40px;
+}
+.journey-step{
+  background:linear-gradient(145deg,#2a2a3d,#1e1e2f);
+  padding:35px;
+  border-radius:22px;
+  position:relative;
+  box-shadow:0 15px 40px rgba(0,0,0,.6);
+}
+.step-num{
+  position:absolute;
+  top:-25px;right:20px;
+  font-size:3rem;font-weight:700;
+  color:#b374d6;opacity:.2;
+}
+.journey-step h3{margin-bottom:10px;color:#fff;}
+.journey-step p{color:#ccc;font-size:.95rem;}
+
+/* ================= TEAM ================= */
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:35px;
+}
+.team-card{
+  background:#1e1e2f;
+  border-radius:22px;
+  padding:30px;
+  text-align:center;
+  transition:.4s;
+}
+.team-card:hover{transform:translateY(-6px);}
+.team-card img{
+  width:120px;height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid #b374d6;
+}
+.team-card h3{margin-top:15px;}
+.team-role{font-size:.85rem;color:#b374d6;}
+.team-meta{font-size:.75rem;color:#aaa;margin-top:5px;}
+
+/* ================= RATES ================= */
+.rate-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:35px;
+}
+.rate-card{
+  background:#1e1e2f;
+  padding:35px;
+  border-radius:22px;
+  box-shadow:0 12px 30px rgba(0,0,0,.6);
+}
+.rate-card span{
+  display:inline-block;
+  margin-top:15px;
+  background:#b374d6;
+  padding:8px 18px;
+  border-radius:20px;
+  font-weight:700;
+}
+
+/* ================= ARTICLES ================= */
+.article-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:35px;
+}
+.article-card {
+  background:#1e1e2f;
+  border-radius:22px;
+  overflow:hidden;
+  position:relative;
+  cursor:default;
+}
+.article-card img{width:100%;height:180px;object-fit:cover;}
+.article-card .content{padding:20px;}
+.tag{font-size:.7rem;color:#b374d6;text-transform:uppercase;}
+.article-card p{font-size:.9rem;color:#ccc;margin:10px 0;}
+.article-card .read-more {
+  display: inline-block;
+  margin-top:12px;
+  color:#b374d6;
+  font-weight:600;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(179,116,214,0.35);
+  transition: color .15s, border-color .15s;
+}
+.article-card .read-more:hover{ color:#9e56c2; border-color:transparent }
+
+/* ================= MODAL ================= */
+.modal {display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;}
+.modal-content {background:#1e1e2f;padding:30px;border-radius:15px;max-width:600px;width:90%;color:#fff;position:relative;max-height:80vh;overflow-y:auto;}
+.modal-content .close {position:absolute;top:10px;right:15px;font-size:1.5rem;cursor:pointer;}
+
+/* ================= GALLERY ================= */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+.gallery-grid a{position:relative;}
+.gallery-grid img{width:100%;border-radius:18px;}
+.gallery-grid a::after{
+  content:'Clinic Facilities';
+  position:absolute;bottom:0;left:0;right:0;
+  padding:12px;
+  background:rgba(0,0,0,.6);
+  opacity:0;
+  transition:.3s;
+}
+.gallery-grid a:hover::after{opacity:1;}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#1e1e2f;
+  padding:60px 30px;
+  color:#ccc;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:35px;
+}
+.footer-quote{
+  margin-top:30px;
+  text-align:center;
+  color:#999;
+  font-style:italic;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:768px){
+  /* Keep brand inline with logo and title on small screens */
+  header{flex-wrap:wrap;align-items:center;gap:10px}
+  .brand{flex:0 0 auto}
+  .site-title{font-size:0.95rem}
+  .hero-content h1{font-size:2.2rem;}
+  /* On small screens, don't force large centered hero — stack naturally */
+  .hero{min-height:auto;padding:60px 20px;align-items:flex-start}
+}
+</style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="container">
-    <div class="logo">ClinicManager</div>
-    <ul>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#benefits">Benefits</a></li>
-        <li><a href="#cta">Contact</a></li>
-    </ul>
-</nav>
+<header>
+  <a href="./Index.html" class="brand" aria-label="Cavite Lying-In Clinic home">
+    <img class="logo-img" src="components/logo.svg" alt="Cavite Lying-In Clinic logo">
+    <span class="site-title">Cavite Lying-In Clinic</span>
+  </a>
+  <button class="menu-btn" aria-expanded="false" aria-label="Open navigation">
+    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"></path>
+    </svg>
+  </button>
+  <nav>
+    <a href="#services">Journey</a>
+    <a href="#team">Doctors</a>
+    <a href="#rates">Rates</a>
+    <a href="#articles">Articles</a>
+    <a href="#gallery">Gallery</a>
+    <!-- Mobile-only contact placed inside the nav overlay so it appears under the links -->
+    <div class="contact-mini nav-contact" aria-hidden="true">
+      <a href="tel:+63461234567">Tel: 046-123-4567</a>
+      <span class="hours">8:00 AM – 5:00 PM</span>
+    </div>
+  </nav>
+  <div class="header-right">
+    <div class="contact-mini">
+      <a href="tel:+63461234567">Tel: 046-123-4567</a>
+      <span class="hours">8:00 AM – 5:00 PM</span>
+    </div>
+  </div>
+</header>
 
-<!-- Hero Section -->
-<section class="hero container">
-    <div class="hero-text">
-        <h1>Smart Management for Lying-In Clinics in Cavite</h1>
-        <p>Integrated web platform with decision support and mobile app for efficient patient care.</p>
-        <button>Request a Demo</button>
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-content">
+    <a href="./Index.html" aria-label="Cavite Lying-In Clinic home">
+      <img src="components/logo.svg" 
+           alt="Cavite Lying-In Clinic logo" style="width:80px;margin-bottom:15px;cursor:pointer;">
+    </a>
+    <div class="hero-sub">Trusted Maternal Care</div>
+    <h1>Supporting Every Mother, Every Step</h1>
+    <p>A digital platform designed to ensure safe pregnancy, delivery, and postnatal care.</p>
+    <div class="hero-buttons">
+      <a href="#services">Start Your Journey</a>
+      <a href="#rates" class="secondary">View Packages</a>
     </div>
-    <div class="hero-img">
-        <img src="https://via.placeholder.com/500x350" alt="Dashboard Preview">
-    </div>
+  </div>
 </section>
 
-<!-- Features Section -->
-<section class="features container" id="features">
-    <h2>Our Features</h2>
-    <div class="feature-cards">
-        <div class="card">
-            <h3>Patient & Staff Management</h3>
-            <p>Organize patient records, staff schedules, and appointments in one platform.</p>
-        </div>
-        <div class="card">
-            <h3>Decision Support System</h3>
-            <p>Make informed decisions with intelligent analytics and dashboards.</p>
-        </div>
-        <div class="card">
-            <h3>Mobile App Access</h3>
-            <p>Manage operations anytime, anywhere using our mobile-friendly app.</p>
-        </div>
-        <div class="card">
-            <h3>Reports & Analytics</h3>
-            <p>Gain insights into clinic performance with detailed reporting tools.</p>
-        </div>
+<section id="services">
+  <h2>Your Pregnancy Journey</h2>
+  <p class="subheading">A guided experience from first check-up to recovery</p>
+  <div class="container journey">
+    <div class="journey-step" data-aos="fade-up">
+      <div class="step-num">01</div>
+      <h3>Prenatal Care</h3>
+      <p>Regular monitoring, consultations, and guidance throughout pregnancy.</p>
     </div>
+    <div class="journey-step" data-aos="fade-up" data-aos-delay="100">
+      <div class="step-num">02</div>
+      <h3>Safe Delivery</h3>
+      <p>Comfort-focused delivery packages with transparent pricing.</p>
+    </div>
+    <div class="journey-step" data-aos="fade-up" data-aos-delay="200">
+      <div class="step-num">03</div>
+      <h3>Postnatal Support</h3>
+      <p>Recovery care and newborn monitoring after delivery.</p>
+    </div>
+  </div>
 </section>
 
-<!-- About Section -->
-<section class="about container" id="about">
-    <div class="about-text">
-        <h2>About Our Platform</h2>
-        <p>Our platform is designed to improve efficiency, reduce errors, and enhance patient care in lying-in clinics across Cavite. With a web-based interface, decision support system, and mobile application, clinics can streamline their operations seamlessly.</p>
+<section id="team">
+  <h2>Meet Our Medical Team</h2>
+  <p class="subheading">Experienced professionals you can trust</p>
+  <div class="container team-grid">
+    <div class="team-card" data-aos="fade-up">
+      <img src="https://images.pexels.com/photos/5473323/pexels-photo-5473323.jpeg" alt="">
+      <h3>Dr. Maria Santos</h3>
+      <div class="team-role">Chief Obstetrician</div>
+      <div class="team-meta">15+ years • 1,200+ deliveries</div>
     </div>
-    <div class="about-img">
-        <img src="https://via.placeholder.com/500x350" alt="About Illustration">
+    <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+      <img src="https://images.pexels.com/photos/5556694/pexels-photo-5556694.jpeg" alt="">
+      <h3>Dr. Juan Dela Cruz</h3>
+      <div class="team-role">Pediatrician</div>
+      <div class="team-meta">10+ years experience</div>
     </div>
+    <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+      <img src="https://images.pexels.com/photos/8974667/pexels-photo-8974667.jpeg" alt="">
+      <h3>Midwife Anna Lee</h3>
+      <div class="team-role">Head Midwife</div>
+      <div class="team-meta">800+ assisted births</div>
+    </div>
+  </div>
 </section>
 
-<!-- Benefits Section -->
-<section class="benefits container" id="benefits">
-    <h2>Benefits</h2>
-    <div class="benefit-cards">
-        <div class="benefit-card">
-            <h3>Save Time & Reduce Errors</h3>
-            <p>Streamlined workflows help your clinic operate efficiently and accurately.</p>
-        </div>
-        <div class="benefit-card">
-            <h3>Improve Decision-Making</h3>
-            <p>Access data-driven insights to make better patient care decisions.</p>
-        </div>
-        <div class="benefit-card">
-            <h3>Accessible Anytime, Anywhere</h3>
-            <p>Manage clinic operations with our responsive web and mobile apps.</p>
-        </div>
-        <div class="benefit-card">
-            <h3>Secure & Reliable</h3>
-            <p>Protect sensitive patient data with secure systems and reliable hosting.</p>
-        </div>
+<section id="rates">
+  <h2>Delivery Packages</h2>
+  <p class="subheading">Affordable and transparent pricing</p>
+  <div class="container rate-grid">
+    <div class="rate-card" data-aos="fade-up">
+      <h3>Standard Package</h3>
+      <p>Includes prenatal checkups, delivery, and postnatal support.</p>
+      <span>₱15,000</span>
     </div>
+    <div class="rate-card" data-aos="fade-up" data-aos-delay="100">
+      <h3>Premium Package</h3>
+      <p>Includes personalized care, private room, and additional consultations.</p>
+      <span>₱25,000</span>
+    </div>
+    <div class="rate-card" data-aos="fade-up" data-aos-delay="200">
+      <h3>VIP Package</h3>
+      <p>All-inclusive care with 24/7 support and premium amenities.</p>
+      <span>₱40,000</span>
+    </div>
+  </div>
 </section>
 
-<!-- CTA Section -->
-<section class="cta container" id="cta">
-    <h2>Ready to Transform Your Clinic?</h2>
-    <button>Request a Demo</button>
+<section id="articles">
+  <h2>Health & Pregnancy Articles</h2>
+  <p class="subheading">Tips and guides for mothers</p>
+  <div class="container article-grid">
+    <div class="article-card" data-aos="fade-up">
+      <img src="https://images.pexels.com/photos/3757943/pexels-photo-3757943.jpeg" alt="">
+      <div class="content">
+        <div class="tag">Prenatal</div>
+        <h3>Nutrition Tips During Pregnancy</h3>
+        <p class="preview-text">Learn which foods are essential for you and your baby’s health.</p>
+        <a href="#" class="read-more">Read More</a>
+      </div>
+    </div>
+    <div class="article-card" data-aos="fade-up" data-aos-delay="100">
+      <img src="https://images.pexels.com/photos/3683022/pexels-photo-3683022.jpeg" alt="">
+      <div class="content">
+        <div class="tag">Postnatal</div>
+        <h3>Recovering After Delivery</h3>
+        <p class="preview-text">Effective methods for physical and emotional recovery after birth.</p>
+        <a href="#" class="read-more">Read More</a>
+      </div>
+    </div>
+    <div class="article-card" data-aos="fade-up" data-aos-delay="200">
+      <img src="https://images.pexels.com/photos/4050286/pexels-photo-4050286.jpeg" alt="">
+      <div class="content">
+        <div class="tag">Parenting</div>
+        <h3>Newborn Care Essentials</h3>
+        <p class="preview-text">Everything you need to know to care for your newborn baby safely.</p>
+        <a href="#" class="read-more">Read More</a>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Footer -->
+<div id="articleModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <p id="modalContent"></p>
+  </div>
+</div>
+
+<section id="gallery">
+  <h2>Clinic Gallery</h2>
+  <p class="subheading">Our facilities and environment</p>
+  <div class="container gallery-grid">
+    <a href="#"><img src="https://images.pexels.com/photos/4050290/pexels-photo-4050290.jpeg" alt=""></a>
+    <a href="#"><img src="https://images.pexels.com/photos/5326670/pexels-photo-5326670.jpeg" alt=""></a>
+    <a href="#"><img src="https://images.pexels.com/photos/5326673/pexels-photo-5326673.jpeg" alt=""></a>
+    <a href="#"><img src="https://images.pexels.com/photos/5326675/pexels-photo-5326675.jpeg" alt=""></a>
+  </div>
+</section>
+
+<section id="testimonials">
+  <h2>What Our Patients Say</h2>
+  <p class="subheading">Real experiences from mothers we support</p>
+  <div class="container team-grid">
+    <div class="team-card" data-aos="fade-up">
+      <p>"Thanks to Cavite Lying-In Clinic's platform, I could monitor my pregnancy safely. Highly recommended!"</p>
+      <h3>- Jane M.</h3>
+    </div>
+    <div class="team-card" data-aos="fade-up" data-aos-delay="100">
+      <p>"Booking appointments and receiving updates via mobile made everything easier and stress-free!"</p>
+      <h3>- Anna R.</h3>
+    </div>
+    <div class="team-card" data-aos="fade-up" data-aos-delay="200">
+      <p>"The decision support system alerted me to potential risks early. Life-saving guidance!"</p>
+      <h3>- Maria L.</h3>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <h2>Get Our Mobile App</h2>
+  <p class="subheading">Manage your pregnancy journey anytime, anywhere</p>
+  <div class="container" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:30px;">
+    <div data-aos="fade-up">
+      <img src="https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg" 
+           alt="Android App Preview" style="width:200px;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,.5);">
+    </div>
+    <div class="hero-buttons" data-aos="fade-up">
+      <a href="#"><i class="fab fa-android"></i> Download for Android</a>
+    </div>
+  </div>
+</section>
+
 <footer>
-    <p>© 2025 Thesis Project – Web-Based Clinic Management Platform for Lying-In Clinics in Cavite</p>
+  <div class="container footer-grid">
+    <div>
+      <h3>Cavite Lying-In Clinic</h3>
+      <p>Providing compassionate maternal and newborn care.</p>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>046-123-4567<br>info@cavitelc.com</p>
+    </div>
+    <div>
+      <h3>Follow Us</h3>
+      <i class="fab fa-facebook"></i>
+      <i class="fab fa-instagram"></i>
+    </div>
+  </div>
+  <p class="footer-quote">“Caring for every mother, supporting every beginning.”</p>
 </footer>
 
-<!-- Scroll Animation Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
-const sections = document.querySelectorAll('.hero, .features, .about, .benefits, .cta');
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting){
-            entry.target.classList.add('animate');
-        }
-    });
-}, { threshold: 0.2 });
-sections.forEach(section => observer.observe(section));
-</script>
+AOS.init({duration:1000,once:true});
 
+// Modal JS
+const modal = document.getElementById('articleModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalContent = document.getElementById('modalContent');
+const closeModal = document.getElementById('closeModal');
+
+document.querySelectorAll('.article-card .read-more').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    const card = btn.closest('.article-card');
+    modalTitle.textContent = card.querySelector('h3').textContent;
+    modalContent.textContent = card.querySelector('.preview-text').textContent;
+    modal.style.display = 'flex';
+  });
+});
+
+closeModal.addEventListener('click', () => modal.style.display = 'none');
+window.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
+
+// Hero image slider
+const hero = document.querySelector('.hero');
+// Reliable online background images (Unsplash CDN with query params)
+const heroImages = [
+  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80',
+  'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1600&q=80',
+  'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1600&q=80',
+  'https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1600&q=80'
+];
+
+let current = 0;
+
+// Preload images to reduce flicker
+if (Array.isArray(heroImages) && heroImages.length) {
+  heroImages.forEach(src => { const i = new Image(); i.src = src; });
+}
+
+// Background layer (so content doesn't blink)
+const heroBg = document.querySelector('.hero .hero-bg');
+
+// Set initial background on the background layer
+if (heroBg && Array.isArray(heroImages) && heroImages.length > 0) {
+  heroBg.style.backgroundImage = `url('${heroImages[current]}')`;
+  heroBg.style.opacity = '1';
+}
+
+// Smooth image change that only affects the background layer
+function changeHeroImage() {
+  if (!heroBg || !Array.isArray(heroImages) || heroImages.length === 0) return;
+
+  // Fade out current background
+  heroBg.style.opacity = '0';
+
+  setTimeout(() => {
+    current = (current + 1) % heroImages.length;
+    heroBg.style.backgroundImage = `url('${heroImages[current]}')`;
+    heroBg.style.opacity = '1';
+  }, 1000);
+}
+
+// Auto-change every 5 seconds
+setInterval(changeHeroImage, 5000);
+
+// Smooth scroll for nav links (improves behavior on older browsers)
+document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function(e){
+    const targetId = this.getAttribute('href').slice(1);
+    const target = document.getElementById(targetId);
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+      // Update the URL hash without jumping
+      history.pushState(null, '', `#${targetId}`);
+    }
+  });
+});
+
+// Mobile nav toggle
+(function(){
+  const header = document.querySelector('header');
+  const btn = document.querySelector('.menu-btn');
+  const nav = document.querySelector('nav');
+  if(!btn || !header || !nav) return;
+
+  // write header height into CSS variable so the nav overlay positions correctly
+  const setHeaderHeightVar = () => {
+    const h = header.getBoundingClientRect().height || 64;
+    document.documentElement.style.setProperty('--header-h', `${Math.round(h)}px`);
+  };
+  setHeaderHeightVar();
+  window.addEventListener('resize', setHeaderHeightVar);
+
+  const closeNav = () => {
+    header.classList.remove('nav-open');
+    btn.setAttribute('aria-expanded','false');
+    btn.setAttribute('aria-label','Open navigation');
+    document.body.style.overflow = '';
+  };
+  const openNav = () => {
+    header.classList.add('nav-open');
+    btn.setAttribute('aria-expanded','true');
+    btn.setAttribute('aria-label','Close navigation');
+    document.body.style.overflow = 'hidden';
+  };
+
+  btn.addEventListener('click', (e)=>{
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    if(expanded) closeNav(); else openNav();
+  });
+
+  // Close when clicking a nav link
+  nav.addEventListener('click', (e)=>{
+    if(e.target.tagName === 'A') closeNav();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') closeNav();
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e)=>{
+    if(!header.classList.contains('nav-open')) return;
+    if(header.contains(e.target)) return;
+    closeNav();
+  });
+})();
+</script>
 </body>
 </html>

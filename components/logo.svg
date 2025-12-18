@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle">
+	<title id="logoTitle">Cavite Lying-In Clinic logo</title>
+	<rect width="120" height="120" fill="none" />
+	<circle cx="60" cy="60" r="44" fill="#b374d6" />
+	<g fill="#fff">
+		<rect x="54" y="38" width="12" height="44" rx="2" />
+		<rect x="38" y="54" width="44" height="12" rx="2" />
+	</g>
+</svg>
+
