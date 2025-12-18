@@ -1,19 +1,17 @@
-<!-- Backend of the edit --> 
-<?php 
-include  "sit.php";
-// getting the submitted data from form 
-echo $id= $_POST["id"];
-echo $first = $_POST["first_name"];
-echo $last = $_POST["last_name"];
-$sql = "UPDATE users SET first_name = '$first', last_name = '$last' WHERE id= '$id'";
+<?php
+include "sit.php";
+
+$id    = (int)$_GET['id'];
+$first = mysqli_real_escape_string($conn, $_POST['first_name']);
+$last  = mysqli_real_escape_string($conn, $_POST['last_name']);
+
+$sql = "UPDATE users SET first_name='$first', last_name='$last' WHERE id=$id";
 
 if ($conn->query($sql) === TRUE) {
-         
-     
-        header("location: index.php");
-      
+    header("Location: index.php");
+    exit;
 } else {
-  echo "Error updating record: " . $conn->error;
+    echo "Error updating record: " . $conn->error;
 }
 
 $conn->close();
