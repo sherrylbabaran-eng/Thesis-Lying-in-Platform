@@ -26,6 +26,15 @@
 </body>
 </html>
 
+$check = $conn->prepare("SELECT id FROM users WHERE email = :email");
+$check->execute([':email' => $email]);
+
+if($check->rowCount() > 0) {
+    echo "Email already exists";
+    exit();
+}
+
+header("Location: login.php");
 
 <?php
 include 'sit.php';
