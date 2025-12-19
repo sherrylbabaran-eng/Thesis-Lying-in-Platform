@@ -7,6 +7,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 <style>
@@ -34,6 +35,14 @@ header{
   .brand{display:flex;align-items:center;gap:10px}
   nav{display:flex;gap:28px;align-items:center;justify-content:center;flex:1}
   nav a{font-size:14px;position:relative}
+  /* Active nav item styling */
+  nav a.active{color:#b374d6}
+  nav a.active::after{
+    content:'';
+    position:absolute;
+    left:0;right:0;bottom:-8px;
+    height:3px;background:#b374d6;border-radius:3px;opacity:1;
+  }
   /* Hide mobile-only nav contact by default (show only on small screens) */
   .nav-contact{display:none}
   .header-right{display:flex;align-items:center;gap:14px;flex:0 0 auto}
@@ -46,7 +55,25 @@ header{
     header{padding-left:8px;padding-right:8px}
     .menu-btn{display:inline-flex !important;background:transparent;border:1px solid rgba(255,255,255,0.04);color:#EDEDED;padding:8px;border-radius:8px;cursor:pointer;margin-left:8px}
     nav{display:none}
-    header.nav-open nav{display:flex;flex-direction:column;position:fixed;left:0;right:0;top:var(--header-h,64px);height:calc(100vh - var(--header-h,64px));background:rgba(15,15,18,0.98);padding:16px;z-index:900}
+    /* Partial, scrollable overlay on mobile instead of full-screen */
+    header.nav-open nav{
+      display:flex;
+      flex-direction:column;
+      position:fixed;
+      left:16px;
+      right:16px;
+      top:var(--header-h,64px);
+      width:calc(100% - 32px);
+      max-height:70vh;
+      height:auto;
+      margin:8px auto 0;
+      background:rgba(15,15,18,0.98);
+      padding:16px;
+      border-radius:12px;
+      overflow:auto;
+      z-index:900;
+      box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    }
     /* Small-screen contact line: hide header inline contact and show nav contact */
     .header-right{display:none}
     .contact-mini{display:none}
@@ -244,6 +271,7 @@ header{
 
 /* ================= FOOTER ================= */
 footer{
+
   background:#1e1e2f;
   padding:60px 30px;
   color:#ccc;
@@ -259,6 +287,30 @@ footer{
   color:#999;
   font-style:italic;
 }
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    color: #c084fc;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s ease;
+}
+
+.social-icons a:hover {
+    background: #c084fc;
+    color: #fff;
+}
+
 
 /* ================= RESPONSIVE ================= */
 @media(max-width:768px){
@@ -488,8 +540,13 @@ footer{
     </div>
     <div>
       <h3>Follow Us</h3>
-      <i class="fab fa-facebook"></i>
-      <i class="fab fa-instagram"></i>
+      <div class="social-icons">
+    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+    <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+</div>
+
     </div>
   </div>
   <p class="footer-quote">“Caring for every mother, supporting every beginning.”</p>
@@ -522,11 +579,14 @@ window.addEventListener('click', e => { if(e.target === modal) modal.style.displ
 const hero = document.querySelector('.hero');
 // Reliable online background images (Unsplash CDN with query params)
 const heroImages = [
-  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80',
-  'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1600&q=80',
-  'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1600&q=80',
-  'https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1600&q=80'
+  'https://images.pexels.com/photos/28099425/pexels-photo-28099425.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  'https://images.pexels.com/photos/7055942/pexels-photo-7055942.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  'https://images.pexels.com/photos/7485055/pexels-photo-7485055.jpeg?auto=compress&cs=tinysrgb&w=1600',
+  'https://images.pexels.com/photos/19751878/pexels-photo-19751878.jpeg?auto=compress&cs=tinysrgb&w=1600'
 ];
+
+
+
 
 let current = 0;
 
@@ -574,6 +634,28 @@ document.querySelectorAll('nav a[href^="#"]').forEach(link => {
     }
   });
 });
+
+// Keep nav active state in sync with scroll position using IntersectionObserver
+(() => {
+  const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+  const sections = navLinks.map(l => document.getElementById(l.getAttribute('href').slice(1))).filter(Boolean);
+  if(!sections.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(!entry.target.id) return;
+      const id = entry.target.id;
+      // When a section is intersecting, highlight corresponding link
+      if(entry.isIntersecting){
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+        });
+      }
+    });
+  }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+
+  sections.forEach(s => observer.observe(s));
+})();
 
 // Mobile nav toggle
 (function(){
