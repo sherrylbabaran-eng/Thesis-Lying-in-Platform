@@ -1,3 +1,4 @@
+
 /* ================= GLOBAL ================= */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
 body{background:#121212;color:#EDEDED;scroll-behavior:smooth;}
@@ -309,3 +310,66 @@ footer{
   /* On small screens, don't force large centered hero — stack naturally */
   .hero{min-height:auto;padding:60px 20px;align-items:flex-start}
 };
+.nav-contact {
+  display: flex;
+  align-items: right;
+  gap: 20px;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Contact + Auth Buttons container */
+.nav-contact, .auth-buttons {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+nav.navbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+}
+
+.auth-buttons a {
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-login {
+  background: #b374d6;
+  color: #fff;
+}
+
+.btn-register {
+  background: #fff;
+  color: #b374d6;
+  border: 2px solid #b374d6;
+}
+
+/* Optional: Responsive for mobile */
+@media (max-width: 768px) {
+  nav.navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav-right {
+    margin-left: 0;
+  }
+}
