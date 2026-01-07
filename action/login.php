@@ -38,19 +38,22 @@ if(isset($_POST['login'])) {
                 exit();
 
             } else {
+                // Password is wrong, email exists
                 $failed = $conn->prepare("UPDATE users SET failed_attempts = failed_attempts + 1, last_failed_login = NOW() WHERE id = ?");
                 $failed->bind_param("i", $user['id']);
                 $failed->execute();
 
-                $error = "Invalid login credentials";
+                $error = "Incorrect password";
             }
         }
 
     } else {
-        $error = "Invalid login credentials";
+        // Email not found
+        $error = "Incorrect email";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

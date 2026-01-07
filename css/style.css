@@ -340,36 +340,75 @@ nav.navbar {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 30px;
   
 }
 
-.auth-buttons a {
-  padding: 8px 18px;
-  border-radius: 25px;
+
+/* Idle state: purple background, white text */
+.btn-login{
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #b374d6;
+    padding: 6px 16px;
+  font-size: 0.85rem;
+  border-radius: 20px;
   font-weight: 600;
   text-decoration: none;
-  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  transition: all 0.2s ease;  
 }
 
-.btn-login {
-  background: #b374d6;
-  color: #fff;
-}
 
-.btn-register {
-  background: #fff;
-  color: #b374d6;
-  border: 2px solid #b374d6;
-}
+
+
 
 /* Optional: Responsive for mobile */
-@media (max-width: 768px) {
-  nav.navbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+@media (max-width: 768px){
   .nav-right {
-    margin-left: 0;
+    flex-direction: column; /* stack vertically sa mobile */
+    align-items: flex-start; /* or center depende sa gusto mo */
+    gap: 10px; /* spacing sa stacked buttons */
   }
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+nav.navbar {
+  display: flex;
+  gap: 25px;
+}
+
+
+
+
+/* Hover effect: white background with purple text */
+.auth-buttons a:hover {
+  background: #b374d6;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(179,116,214,0.3);
+}
+
+
+.btn-register {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #b374d6;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  border-radius: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  transition: all 0.2s ease;  
 }
