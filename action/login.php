@@ -1,6 +1,5 @@
 <?php
 session_start();
-include '../back-end/sit.php';
 
 $error = '';
 $max_attempts = 5;
